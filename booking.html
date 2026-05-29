@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Запис на масаж</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Використовуємо той самий файл стилів -->
+</head>
+<body>
+
+  <div class="booking-container">
+    <h2>Оформлення запису</h2>
+    
+    <form id="bookingForm">
+      
+      <!-- 2. Вибір послуги (заповниться автоматично, але можна змінити) -->
+      <div class="form-group">
+        <label for="service">Оберіть послугу:</label>
+        <select id="service" name="service" required>
+          <option value="">-- Оберіть варіант --</option>
+          <option value="Allbody">Масаж всього тіла</option>
+          <option value="Lymph">Лімфодренажний масаж</option>
+        </select>
+      </div>
+
+      <!-- 3. Тривалість послуги -->
+      <div class="form-group">
+        <label>Тривалість послуги:</label>
+        <div class="radio-group">
+          <label><input type="radio" name="duration" value="60" required> 60 хвилин</label>
+          <label><input type="radio" name="duration" value="90"> 90 хвилин</label>
+        </div>
+      </div>
+
+      <!-- 4. Дані гостя -->
+      <div class="form-group">
+        <label for="first-name">Ім'я:</label>
+        <input type="text" id="first-name" name="firstName" required placeholder="Ваше ім'я">
+      </div>
+
+      <div class="form-group">
+        <label for="last-name">Прізвище:</label>
+        <input type="text" id="last-name" name="lastName" required placeholder="Ваше прізвище">
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Номер телефону:</label>
+        <!-- type="tel" викликає зручну цифрову клавіатуру на смартфонах -->
+        <input type="tel" id="phone" name="phone" required placeholder="+380">
+      </div>
+
+      <!-- 5. Вибір дати -->
+      <div class="form-group">
+        <label for="date">Оберіть дату:</label>
+        <!-- Обмеження на 60 днів ми додамо через JavaScript -->
+        <input type="date" id="date" name="date" required>
+      </div>
+
+      <!-- 6. Вибір часу -->
+      <div class="form-group">
+        <label for="time">Оберіть час:</label>
+        <select id="time" name="time" required disabled>
+          <option value="">Спочатку оберіть дату...</option>
+          <!-- Сюди JS підтягуватиме вільні години з 09:00 до 19:00 -->
+        </select>
+      </div>
+
+      <!-- 7. Вибір масажиста -->
+      <div class="form-group">
+        <label for="master">Оберіть масажиста:</label>
+        <select id="master" name="master" required>
+          <option value="">-- Будь-який вільний майстер --</option>
+          <option value="master1">Таїсія (Масажист)</option>
+          <option value="master2">Співробітниця (Масажист)</option>
+        </select>
+      </div>
+
+      <!-- 8. Нагадування в Telegram -->
+      <div class="form-group checkbox-group">
+        <label>
+          <input type="checkbox" id="telegram-toggle" name="wantTelegram">
+          Хочу отримати нагадування в Telegram
+        </label>
+      </div>
+
+      <!-- 9. Поле для Telegram (приховане за замовчуванням) -->
+      <div class="form-group" id="telegram-input-block" style="display: none;">
+        <label for="telegram">Ваш нікнейм або номер в Telegram:</label>
+        <input type="text" id="telegram" name="telegram" placeholder="@username або номер">
+      </div>
+
+      <button type="submit" class="btn submit-btn">Підтвердити запис</button>
+    </form>
+  </div>
+
+  <!-- Підключаємо логіку анкети -->
+  <script src="booking-script.js"></script>
+</body>
+</html>
