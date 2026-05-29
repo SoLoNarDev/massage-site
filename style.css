@@ -147,36 +147,29 @@
 .massage-card .incomplete.description {
   display: block;
   opacity: 1;
-  transition: opacity 0.5s ease; /* Плавне зникнення за 0.3 секунди */
+  transition: opacity 0.2s ease;
 }
 
+
 .massage-card .extra {
-  /* Замість display: none використовуємо приховування через висоту та прозорість */
+  display: flex;
+  gap: 0px;
   max-height: 0;
-  opacity: 0;
-  visibility: hidden;
+  opacity: 1;
   overflow: hidden;
-  display: flex; /* Зберігаємо flex для фото всередині */
-  gap: 20px;
-  transition: max-height 0.1s ease, opacity 0.5s ease, margin-top 0.1s ease;
+  transition: max-height 0.4s ease, opacity 0.5s ease;
 }
 
 /* КОЛИ КАРТКА АКТИВНА (ПІСЛЯ КЛІКУ): */
+
 .massage-card.active .incomplete.description {
-  /* Ховаємо короткий опис через висоту та прозорість, щоб не було різкого стрибка */
-  max-height: 0;
   opacity: 0;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
 }
 
 .massage-card.active .extra {
   /* Плавно розгортаємо та показуємо повний опис */
-  max-height: 500px; /* Достатня висота, щоб вмістити весь текст із запасом */
+  max-height: 500px; 
   opacity: 1;
-  visibility: visible;
-  margin-top: 15px;
 }
 
   /* FOOTER */
@@ -205,32 +198,19 @@
     border-radius: 10px;
     overflow: hidden;
   }
-@media (max-width: 768px) {
-  :root {
-      --text-add: 22px;
-    }
-    .massage-card {
-    background: #F5EBE0;
-    padding: 25px / 20%;
-    border-radius: 20px / 100%, 5px;
-    }
-    .btn {
-    margin-top: 15px / 20%;
-    padding: 16px 120px - 50%;
-    border-radius: 12px / 100%, 5px;
-    }
-  }
 
   /* RESPONSIVE */
   @media (max-width: 1024px) {
     .full-screen-img{
       width: 100%;
       height: 100vh;
+      height: 100dvh;
       object-fit: cover;
     }
     .services {
       grid-template-columns: 1fr;
       padding: 20px;
+        gap: 15px;
     }
 
     .footer {
@@ -242,6 +222,18 @@
       margin-top: auto;
     }
     :root {
-      --text-add: 20px;
+      --text-add: 10px;
     }
   }
+
+
+  @media (max-width: 768px) {
+  :root {
+      --text-add: 20px;
+    }
+    .massage-card {
+    padding: 25px / 20%;
+    border-radius: 20px / 100%, 5px;
+    }
+  }
+  
