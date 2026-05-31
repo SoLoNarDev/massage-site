@@ -39,3 +39,21 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  document.querySelectorAll(".btn").forEach(btn => {
+
+    btn.addEventListener("click", () => {
+
+      const service = btn.dataset.service;
+      const durations = btn.dataset.duration;
+
+      window.location.href =
+        `booking.html?service=${service}&durations=${durations}`;
+
+    });
+
+  });
+
+});

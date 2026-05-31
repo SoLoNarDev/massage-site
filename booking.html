@@ -24,37 +24,33 @@
           <option value="allbody">Масаж всього тіла</option>
           <option value="lymph">Лімфодренажний масаж</option>
           <option value="cellulite">Антицелюлітний масаж</option>
+          <option value="cellulite-applied">Апаратний антицелюлітний масаж</option>
           <option value="sports">Спортивний масаж</option>
-          <option value="sports-neck">Спортивний масаж шийно-комірцевої зони</option>
-          <option value="neck">Масаж шийно-комірцевої зони</option>
+          <option value="neck">Масаж спини та шийно-комірцевої зони</option>
           <option value="face">Масаж обличчя</option>
+          <option value="face-applied">Апаратний масаж обличчя</option>
+          <option value="honey">Медовий масаж</option>
+          <option value="bottle">Баночний масаж</option>
         </select>
       </div>
 
       <!-- 3. Тривалість послуги -->
       <div class="form-group">
-        <label>Тривалість послуги:</label>
-        <div class="radio-group">
-          <label><input type="radio" name="duration" value="60" required> 60 хвилин</label>
-          <label><input type="radio" name="duration" value="90"> 90 хвилин</label>
-        </div>
+        <label for="duration">Тривалість послуги:</label>
+        <select id="duration" name="duration" required>
+          <option value="">-- Оберіть тривалість --</option>
+        </select>
       </div>
 
       <!-- 4. Дані гостя -->
       <div class="form-group">
-        <label for="first-name">Ім'я:</label>
-        <input type="text" id="first-name" name="firstName" required placeholder="Ваше ім'я">
-      </div>
-
-      <div class="form-group">
-        <label for="last-name">Прізвище:</label>
-        <input type="text" id="last-name" name="lastName" required placeholder="Ваше прізвище">
+        <label for="first-name">Ім'я та прізвище:</label>
+        <input type="text" id="first-name" name="firstName" required minlength="2" maxlength="100" placeholder="Ваше ім'я та прізвище">
       </div>
 
       <div class="form-group">
         <label for="phone">Номер телефону:</label>
-        <!-- type="tel" викликає зручну цифрову клавіатуру на смартфонах -->
-        <input type="tel" id="phone" name="phone" required placeholder="+380">
+        <input type="tel" id="phone" name="phone" required pattern="^\+[0-9 ]{8,20}$" placeholder="+380XXXXXXXXX">
       </div>
 
       <!-- 5. Вибір дати -->
