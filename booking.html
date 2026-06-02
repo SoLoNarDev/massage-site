@@ -53,23 +53,7 @@
         <input type="tel" id="phone" name="phone" required pattern="^\+[0-9 ]{8,20}$" placeholder="+380XXXXXXXXX">
       </div>
 
-      <!-- 5. Вибір дати -->
-      <div class="form-group">
-        <label for="date">Оберіть дату:</label>
-        <!-- Обмеження на 60 днів ми додамо через JavaScript -->
-        <input type="date" id="date" name="date" required>
-      </div>
-
-      <!-- 6. Вибір часу -->
-      <div class="form-group">
-        <label for="time">Оберіть час:</label>
-        <select id="time" name="time" required disabled>
-          <option value="">Спочатку оберіть дату...</option>
-          <!-- Сюди JS підтягуватиме вільні години з 09:00 до 19:00 -->
-        </select>
-      </div>
-
-      <!-- 7. Вибір масажиста -->
+      <!-- 5. Вибір масажиста -->
       <div class="form-group">
         <label for="master">Оберіть масажиста:</label>
         <select id="master" name="master" required>
@@ -79,18 +63,20 @@
         </select>
       </div>
 
-      <!-- 8. Нагадування в Telegram -->
-      <div class="form-group checkbox-group">
-        <label>
-          <input type="checkbox" id="telegram-toggle" name="wantTelegram">
-          Хочу отримати нагадування в Telegram
-        </label>
+      <!-- 6. Вибір дати -->
+      <div class="form-group">
+        <label for="date">Оберіть дату:</label>
+        <!-- Обмеження на 60 днів ми додамо через JavaScript -->
+        <input type="date" id="date" name="date" required>
       </div>
 
-      <!-- 9. Поле для Telegram (приховане за замовчуванням) -->
-      <div class="form-group" id="telegram-input-block" style="display: none;">
-        <label for="telegram">Ваш нікнейм або номер в Telegram:</label>
-        <input type="text" id="telegram" name="telegram" placeholder="@username або номер">
+      <!-- 7. Вибір часу -->
+      <div class="form-group">
+        <label for="time">Оберіть час:</label>
+        <select id="time" name="time" required disabled>
+          <option value="">Спочатку оберіть дату...</option>
+          <!-- Сюди JS підтягуватиме вільні години з 09:00 до 19:00 -->
+        </select>
       </div>
 
       <button type="submit" class="btn submit-btn">Підтвердити запис</button>
