@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="css/booking-style.css">
+  <link rel="stylesheet" href="booking-style.css">
   <title>Запис на масаж</title>
 </head>
 <body>
   <script src="js/script.js"></script>
   <script src="js/booking-script.js"></script>
+  
 
 
   <div class="booking-container">
@@ -74,7 +75,7 @@
       <div class="form-group">
         <label for="time">Оберіть час:</label>
         <select id="time" name="time" required disabled>
-          <option value="">Спочатку оберіть дату...</option>
+          <option value="">Спочатку оберіть дату, тривалість масажу та масажиста...</option>
           <!-- Сюди JS підтягуватиме вільні години з 09:00 до 19:00 -->
         </select>
       </div>
@@ -83,7 +84,20 @@
     </form>
   </div>
 
+
+  <footer class="footer">
+ <div class="footer-section">
+      <h2>Контакти</h2>
+      <p>Телефон: +380...</p>
+      <p>Telegram: @username</p>
+      <p>Viber: +380...</p>
+      <p>Instagram: @username</p>
+      <p>TikTok: @username</p>
+    </div>
+</footer>
   <!-- Підключаємо логіку анкети -->
   <script src="booking-script.js"></script>
 </body>
+ 
+
 </html>

@@ -84,20 +84,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const WORK_START = 9 * 60; // початок робочого дня / work start
 const WORK_END = 19 * 60; // кінець робочого дня / work end
-const SLOT_INTERVAL = 15; // інтервал між слотами / slot interval
-const MIN_GAP = 30; // мінімальний інтервал між записами / minimum gap between bookings
+const SLOT_INTERVAL = 30; // інтервал між слотами / slot interval
 const bookings = [{
     master: "master1",
     date: "2026-06-06",
     start: "12:00",
     end: "12:40"
-  },
-  {
-    master: "master1",
+  }, {master: "master1",
     date: "2026-06-06",
-    start: "14:00",
-    end: "15:00"
-  }]; // база записів ЗАГЛУШКА ДЛЯ КОДУ для посилання на таблицю / bookings database CODE PLACEHOLDER for reference to spreadsheet
+    start: "13:30",
+    end: "14:00"}]; // база записів ЗАГЛУШКА ДЛЯ КОДУ для посилання на таблицю / bookings database CODE PLACEHOLDER for reference to spreadsheet
 
 const serviceSelect = document.getElementById("service");
 const durationSelect = document.getElementById("duration");
@@ -126,6 +122,13 @@ function toTime(mins) {
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
 }
 
+// отримання "якорних" слотів / get anchor slots
+function getAnchorSlots(master, date) {
+  return bookings
+    .filter(b => b.master === master && b.date === date)
+    .map(b => toMinutes(b.end))
+    .filter(end => end % SLOT_INTERVAL !== 0);
+}
 
 // зайняті інтервали / busy intervals
 function getBusyIntervals(master, date) {
@@ -138,60 +141,28 @@ function getBusyIntervals(master, date) {
     .sort((a, b) => a.start - b.start);
 }
 
-// вільні інтервали / free intervals
-function getFreeIntervals(busy) {
-  let current = WORK_START;
-  const free = [];
+// генерація сітки часу / generate time grid
+function generateGrid(duration) {
+  const slots = [];
 
-  for (const b of busy) {
-    if (b.start > current) {
-      free.push({ start: current, end: b.start });
-    }
-    current = Math.max(current, b.end);
+  for (let t = WORK_START; t + duration <= WORK_END; t += SLOT_INTERVAL) {
+    slots.push(t);
   }
 
-  if (current < WORK_END) {
-    free.push({ start: current, end: WORK_END });
-  }
-
-  return free;
+  return slots;
 }
+// перевірка пертинутину / check for overlap
+function isBusy(master, date, start, duration) {
+  const end = start + duration;
 
-// генерація можливих слотів / generate available slots
-function findAvailableSlots(freeIntervals, duration) {
-  const result = [];
+  return bookings.some(b => {
+    if (b.master !== master || b.date !== date) return false;
 
-  for (const interval of freeIntervals) {
-    let start = interval.start;
+    const bStart = toMinutes(b.start);
+    const bEnd = toMinutes(b.end);
 
-    while (start + duration <= interval.end) {
-
-      const remaining = interval.end - (start + duration);
-
-      if (remaining > 0 && remaining < MIN_GAP) {
-        start += 60; 
-        continue;
-      }
-
-      result.push({
-        start: toTime(start),
-        end: toTime(start + duration)
-      });
-
-      start += 30; 
-    }
-  }
-
-  return result;
-}
-// перевірка на маленькі проміжки / check for small gaps
-function checkGaps(freeIntervals) {
-  for (const interval of freeIntervals) {
-    const size = interval.end - interval.start;
-    if (size < 60) {
-      console.log("SMALL GAP:", interval);
-    }
-  }
+    return start < bEnd && end > bStart;
+  });
 }
 
 // фільтр мінімум 4 години наперед / 4 hour advance rule
@@ -213,11 +184,49 @@ function filterByAdvanceTime(slots) {
   });
 }
 
-// головна функція / main function
+// головна функція генерації слотів / main function for generating slots
 function generateSlots(master, date, duration) {
-  const busy = getBusyIntervals(master, date);
-  const free = getFreeIntervals(busy);
-  return findAvailableSlots(free, duration);
+  const result = [];
+  const used = new Set();
+
+  // звичайна сітка
+  for (const t of generateGrid(duration)) {
+
+    if (!isBusy(master, date, t, duration)) {
+
+      result.push({
+        start: toTime(t),
+        end: toTime(t + duration)
+      });
+
+      used.add(t);
+    }
+  }
+
+  // плаваючі слоти після нестандартних завершень
+  const anchors = getAnchorSlots(master, date);
+
+  for (const anchor of anchors) {
+
+    if (
+      anchor + duration <= WORK_END &&
+      !used.has(anchor) &&
+      !isBusy(master, date, anchor, duration)
+    ) {
+
+      result.push({
+        start: toTime(anchor),
+        end: toTime(anchor + duration)
+      });
+    }
+  }
+
+  // сортування по часу
+  result.sort((a, b) =>
+    toMinutes(a.start) - toMinutes(b.start)
+  );
+
+  return result;
 }
 
 // рендер часу / render time options
@@ -237,11 +246,11 @@ function renderTimeSlots() {
   timeSelect.disabled = false;
 
   if (filtered.length === 0) {
-    timeSelect.innerHTML = `<option>Немає доступного часу / No available time</option>`;
+    timeSelect.innerHTML = `<option>Немає доступного часу>`;
     return;
   }
 
-  timeSelect.innerHTML = `<option value="">Оберіть час / Select time</option>`;
+  timeSelect.innerHTML = `<option value="">Оберіть час>`;
 
   filtered.forEach(slot => {
     const opt = document.createElement("option");
