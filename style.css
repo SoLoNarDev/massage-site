@@ -210,7 +210,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 32px;
     padding: 50px 30px calc(50px + var(--safe-area-bottom));
-    background-color: #55493A;
+    background-color: #F5EBE0;
     color: white;
     margin-top: 40px;
   }
