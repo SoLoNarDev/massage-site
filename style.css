@@ -30,6 +30,7 @@
     padding-left: var(--safe-area-left);
     padding-right: var(--safe-area-right);
     overflow-x: hidden;
+    margin: 0;
   }
 
   /* HEADER */
@@ -37,9 +38,8 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    background: #473B2E;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     min-height: 200px;
   }
@@ -49,25 +49,25 @@
     max-height: 480px;
     object-fit: cover;
     display: block;
+    margin: 0;
+    padding: 0;
   }
 
   /* MAIN BUTTON */
   .main-btn {
     padding: 15px 40px;
     border: none;
-    background-color: #55493A;
-    color: white;
     border-radius: 14px;
-    cursor: pointer;
-    transition: 0.3s;
-    font-weight: 500;
-  }
+   background-color: #55493A;
+   color: white;
+   cursor: pointer;
+   transition: 0.3s;
+}
 
-  .main-btn:hover {
-    transform: scale(1.03);
-    filter: brightness(1.15);
-  }
-
+.submit-btn:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
   /* SERVICES GRID */
   .services {
     display: flex;
@@ -170,24 +170,24 @@
     font-weight: 600;
     margin-top: 14px;
     padding: 14px 28px;
-    background-color: #55493A;
-    color: #FFFFFF;
     border: none;
     border-radius: 12px;
-    cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease;
     text-align: center;
     width: 100%;
     min-height: 48px; /* Touch-friendly standard on iPhone */
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+    background-color: #55493A;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-  .btn:active {
-    transform: scale(0.98);
-    background-color: #41372b;
-  }
+.submit-btn:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
 
   @media (hover: hover) {
     .btn:hover {
@@ -210,7 +210,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 32px;
     padding: 50px 30px calc(50px + var(--safe-area-bottom));
-    background-color: #F5EBE0;
+    background-color: #55493A;
     color: white;
     margin-top: 40px;
   }
